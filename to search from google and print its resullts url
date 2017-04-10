@@ -1,0 +1,14 @@
+import requests
+from urllib import urlencode
+from bs4 import BeautifulSoup
+query=raw_input('Enter the String you want to search:')
+query=urlencode({'q':query})
+url='https://www.google.co.in/search?'+query
+r=requests.get(url)
+html=r.text
+sp=BeautifulSoup(html)
+
+print (sp.title)
+for l in sp.find_all():
+    if l.get('href')!=None and l.get('href')[:15]=='/url?q=https://':
+        print (l.get('href')[15:])
